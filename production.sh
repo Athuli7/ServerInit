@@ -6,8 +6,6 @@ if [[ $EUID -ne 0 ]]; then
   echo "You must be a root user" 2>&1
   exit 1
 fi
-#
-sudo apt-get install -y pwgen
 echo "Set own Passwords ? Type 'Yes' :"
 read setPassword
 if [ "$setPassword" == "Yes" ]; then
@@ -15,26 +13,32 @@ echo "MySQL root password : "
 read MySQLrootpassword
 echo "phpMyAdmin password : "
 read phpMyAdminpassword
-else
+fi
+#
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get dist-upgrade -y
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get dist-upgrade -y
+sudo apt-get update
+
+if [ "$setPassword" != "Yes" ]; then
+sudo apt-get install -y pwgen 
 MySQLrootpassword=`pwgen -c -1 21`
 phpMyAdminpassword=`pwgen -c -1 21`
 fi
-
-sudo apt-get update
-sudo apt-get install -y git htop
-sudo apt-get install apache2 -y
+sudo apt-get install -y apache2 git htop
 sudo echo "mysql-server mysql-server/root_password select $MySQLrootpassword" | debconf-set-selections
 sudo echo "mysql-server mysql-server/root_password_again select $MySQLrootpassword" | debconf-set-selections
-# Depretiated : export DEBIAN_FRONTEND=noninteractive
 sudo  apt-get install mysql-server php5-mysql -y
-# Depretiated : mysqladmin -u root password $MySQLrootpassword
 sudo mysql_install_db
 
-sudo mysql -sfu root --password=$MySQLrootpassword "DELETE FROM mysql.user WHERE User='';"
-sudo mysql -sfu root --password=$MySQLrootpassword "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');"
-sudo mysql -sfu root --password=$MySQLrootpassword "DROP DATABASE test;"
-sudo mysql -sfu root --password=$MySQLrootpassword "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';"
-sudo mysql -sfu root --password=$MySQLrootpassword "FLUSH PRIVILEGES;"
+sudo mysql -sfu root --password=$MySQLrootpassword -e "DELETE FROM mysql.user WHERE User='';"
+sudo mysql -sfu root --password=$MySQLrootpassword -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');"
+sudo mysql -sfu root --password=$MySQLrootpassword -e "DROP DATABASE test;"
+sudo mysql -sfu root --password=$MySQLrootpassword -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';"
+sudo mysql -sfu root --password=$MySQLrootpassword -e "FLUSH PRIVILEGES;"
 
 sudo apt-get install -y php5 libapache2-mod-php5 php5-mcrypt
 
@@ -62,8 +66,8 @@ sudo apt-get install -y phpmyadmin apache2-utils
 
 ###Winding up
 if [ "$setPassword" == "Yes" ]; then
-$MySQLrootpassword = "as Set"
-$phpMyAdminpassword = "as Set"
+$MySQLrootpassword="as Set"
+$phpMyAdminpassword="as Set"
 fi
 echo "Report :-"
 echo "MySQL root password : $MySQLrootpassword"
