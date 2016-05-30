@@ -16,8 +16,8 @@ read MySQLrootpassword
 echo "phpMyAdmin password : "
 read phpMyAdminpassword
 else
-MySQLrootpassword = `pwgen -c -1 21`
-phpMyAdminpassword = `pwgen -c -1 21`
+MySQLrootpassword=`pwgen -c -1 21`
+phpMyAdminpassword=`pwgen -c -1 21`
 fi
 
 sudo apt-get update
