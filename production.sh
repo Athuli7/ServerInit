@@ -62,9 +62,8 @@ echo "phpmyadmin phpmyadmin/app-password-confirm password $phpMyAdminpassword" |
 
 sudo apt-get install -y phpmyadmin apache2-utils
 
-
-
 ###Winding up
+sudo service apache2 restart
 if [ "$setPassword" == "Yes" ]; then
 $MySQLrootpassword="as Set"
 $phpMyAdminpassword="as Set"
@@ -72,3 +71,6 @@ fi
 echo "Report :-"
 echo "MySQL root password : $MySQLrootpassword"
 echo "phpMyAdmin passsword : $phpMyAdminpassword"
+echo "Press enter to reboot"
+read dummy
+sudo reboot
