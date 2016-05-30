@@ -10,7 +10,7 @@ fi
 sudo apt-get install -y pwgen
 echo "Set own Passwords ? Type 'Yes' :"
 read setPassword
-if ("$setPassword" == "Yes") then
+if [ "$setPassword" == "Yes" ]; then
 echo "MySQL root password : "
 read MySQLrootpassword
 echo "phpMyAdmin password : "
@@ -61,7 +61,7 @@ sudo apt-get install -y phpmyadmin apache2-utils
 
 
 ###Winding up
-if( "$setPassword" == "Yes") then
+if [ "$setPassword" == "Yes" ]; then
 $MySQLrootpassword = "as Set"
 $phpMyAdminpassword = "as Set"
 fi
