@@ -19,8 +19,8 @@ sudo mysql -sfu root "FLUSH PRIVILEGES;"
 
 sudo apt-get install -y php5 libapache2-mod-php5 php5-mcrypt
 
-sudo echo /etc/apache2/mods-enabled/dir.conf <  "<IfModule mod_dir.c>"
-sudo echo /etc/apache2/mods-enabled/dir.conf << "<DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm"
-sudo echo /etc/apache2/mods-enabled/dir.conf << "</IfModule>"
+sudo echo "<IfModule mod_dir.c>" > /etc/apache2/mods-enabled/dir.conf
+sudo echo "<DirectoryIndex index.php index.html index.cgi index.pl index.xhtml index.htm" >> /etc/apache2/mods-enabled/dir.conf
+sudo echo "</IfModule>" >> /etc/apache2/mods-enabled/dir.conf
 
 sudo service apache2 restart
