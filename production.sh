@@ -5,10 +5,9 @@ echo "© Wayne Enterprises Pvt Ltd"
 if [[ $EUID -ne 0 ]]; then
   echo "You must be a root user" 2>&1
   exit 1
-else
-  mount /dev/sdb1 /mnt/disk2
 fi
 #
+sudo apt-get install -y pwgen
 echo "Set own Passwords ? Type 'Yes' :"
 read setPassword
 if ("$setPassword" == "Yes") then
