@@ -19,7 +19,7 @@ read phpMyAdminpassword
 else
 MySQLrootpassword = `pwgen -c -1 21`
 phpMyAdminpassword = `pwgen -c -1 21`
-if
+fi
 
 sudo apt-get update
 sudo apt-get install -y git htop
