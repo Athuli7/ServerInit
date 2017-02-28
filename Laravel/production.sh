@@ -23,7 +23,7 @@ sudo apt-get install -y pwgen
 MySQLrootpassword=`pwgen -c -1 21`
 phpMyAdminpassword=`pwgen -c -1 21`
 fi
-sudo apt-get install -y apache2 git htop ufw curl
+sudo apt-get install -y apache2 git htop ufw curl zip unzip
 sudo echo "mysql-server mysql-server/root_password select $MySQLrootpassword" | debconf-set-selections
 sudo echo "mysql-server mysql-server/root_password_again select $MySQLrootpassword" | debconf-set-selections
 sudo ufw default deny incoming
