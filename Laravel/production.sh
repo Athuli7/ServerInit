@@ -49,7 +49,7 @@ sudo echo "</IfModule>" >> /etc/apache2/mods-enabled/dir.conf
 
 sudo systemctl restart apache2
 
-sudo apt-get install -y php-cgi php-cli php-curl php-common php-dbg php-dev php-gd
+sudo apt-get install -y php-cgi php-cli php-curl php-common php-dev php-gd
 sudo a2enmod rewrite
 
 sudo echo "<?php phpinfo(); ?>" > /var/www/html/index.php
@@ -62,6 +62,10 @@ echo "phpmyadmin phpmyadmin/mysql/app-pass password $phpMyAdminpassword" |debcon
 echo "phpmyadmin phpmyadmin/app-password-confirm password $phpMyAdminpassword" | debconf-set-selections
 
 sudo apt-get install -y phpmyadmin apache2-utils
+
+sudo wget https://getcomposer.org/installer
+sudo php installer
+sudo mv composer.phar /usr/local/bin/composer
 
 ###Winding up
 sudo systemctl restart apache2
